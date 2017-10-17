@@ -1,0 +1,20 @@
+<?php
+
+use $useClassName;
+
+class $className extends $baseClassName
+{
+    public function up()
+    {
+        $this->execute('
+
+        ');
+    }
+
+    public function down()
+    {
+        $this->execute('
+
+        ');
+    }
+}

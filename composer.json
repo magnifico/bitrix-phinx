@@ -1,0 +1,25 @@
+{
+    "name": "magnifico/bitrix-phinx",
+    "type": "bitrix-d7-module",
+    "authors": [
+        {
+            "name": "Igor Denisenko",
+            "email": "im.denisenko@yandex.ru"
+        }
+    ],
+    "extra": {
+        "installer-name": "phinx"
+    },
+    "require": {
+        "php": ">=7.0",
+        "robmorgan/phinx": "^0.6",
+        "composer/installers": "^1.1",
+        "magnifico/bitrix-console": "^0.1"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@gitlab.com:magnifico/bitrix-console.git"
+        }
+    ]
+}
