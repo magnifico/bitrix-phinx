@@ -6,18 +6,10 @@ $eventManager->addEventHandler('magnifico.console', 'OnBeforeRun', function(\Bit
     $app = $event->getParameter('app');
 
     $commands = [
-        'phinx:create' => new class() extends \Phinx\Console\Command\Create {
-            use \Magnifico\Phinx\BitrixAdapter;
-        },
-        'phinx:migrate' => new class() extends \Phinx\Console\Command\Migrate {
-            use \Magnifico\Phinx\BitrixAdapter;
-        },
-        'phinx:rollback' => new class() extends \Phinx\Console\Command\Rollback {
-            use \Magnifico\Phinx\BitrixAdapter;
-        },
-        'phinx:status' => new class() extends \Phinx\Console\Command\Status {
-            use \Magnifico\Phinx\BitrixAdapter;
-        },
+        'phinx:create' => new \Magnifico\Phinx\Command\Create(),
+        'phinx:migrate' => new \Magnifico\Phinx\Command\Migrate(),
+        'phinx:rollback' => new \Magnifico\Phinx\Command\Rollback(),
+        'phinx:status' => new \Magnifico\Phinx\Command\Status(),
     ];
 
     foreach ($commands as $name => $command) {

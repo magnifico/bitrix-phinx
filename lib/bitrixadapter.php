@@ -2,9 +2,13 @@
 
 namespace Magnifico\Phinx;
 
+use Bitrix\Main\Application;
+use Bitrix\Main\Loader;
+use Bitrix\Main\ModuleManager;
 use Phinx\Config\Config;
-use Bitrix\Main\{Application, Loader, ModuleManager};
-use Symfony\Component\Console\{Input\InputArgument, Input\InputInterface, Output\OutputInterface};
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 trait BitrixAdapter
 {
