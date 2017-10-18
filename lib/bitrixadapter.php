@@ -63,7 +63,7 @@ trait BitrixAdapter
                 'migrations' => $moduleRoot.'/migrations',
             ],
             'environments' => [
-                'default_migration_table' => str_replace('.', '_', $module).'_log',
+                'default_migration_table' => 'magnifico_phinx_migrations_of_'.str_replace('.', '_', $module),
                 'default_database' => 'main',
                 'main' => [
                     'adapter' => 'mysql',
