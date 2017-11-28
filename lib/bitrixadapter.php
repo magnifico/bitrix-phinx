@@ -26,21 +26,22 @@ trait BitrixAdapter
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        if ($this->reconfigure($input, $output)) {
+        $module = $input->getArgument('module');
+
+        if ($this->reconfigure($module, $input, $output)) {
             parent::execute($input, $output);
         }
     }
 
     /**
+     * @param string $module
      * @param InputInterface $input
      * @param OutputInterface $output
      *
      * @return bool
      */
-    protected function reconfigure(InputInterface $input, OutputInterface $output)
+    protected function reconfigure(string $module, InputInterface $input, OutputInterface $output)
     {
-        $module = $input->getArgument('module');
-
         if (false === ModuleManager::isModuleInstalled($module)) {
             $output->writeln('<error>Module "'.$module.'" is not installed.</error>');
             return false;

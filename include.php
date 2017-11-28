@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__.'/tools.php';
+
 $eventManager = \Bitrix\Main\EventManager::getInstance();
 
 $eventManager->addEventHandler('magnifico.console', 'OnBeforeRun', function(\Bitrix\Main\Event $event){
