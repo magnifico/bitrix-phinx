@@ -6,6 +6,7 @@ use Bitrix\Main\Application;
 use Bitrix\Main\Loader;
 use Bitrix\Main\ModuleManager;
 use Phinx\Config\Config;
+use Phinx\Migration\Manager;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -76,6 +77,8 @@ trait BitrixAdapter
                 ],
             ],
         ]));
+
+        $this->setManager(new Manager($this->getConfig(), $input, $output));
 
         return true;
     }
