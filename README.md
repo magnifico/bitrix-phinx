@@ -47,7 +47,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/magnifico.console/manage
 
 ```
 # Создать миграцию
-php manage.php phinx:create magnifico.site
+php manage.php phinx:create magnifico.site MigrationName
 
 # Применение миграций
 php manage.php phinx:migrate magnifico.site
