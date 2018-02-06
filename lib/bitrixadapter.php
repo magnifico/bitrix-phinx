@@ -41,7 +41,7 @@ trait BitrixAdapter
      *
      * @return bool
      */
-    protected function reconfigure(string $module, InputInterface $input, OutputInterface $output)
+    protected function reconfigure($module, InputInterface $input, OutputInterface $output)
     {
         if (false === ModuleManager::isModuleInstalled($module)) {
             $output->writeln('<error>Module "'.$module.'" is not installed.</error>');

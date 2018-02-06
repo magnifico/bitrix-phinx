@@ -26,7 +26,7 @@ class Migrate extends \Phinx\Console\Command\Migrate
      *
      * @return boolean
      */
-    protected function checkMigrationsFolder(string $module) : bool
+    protected function checkMigrationsFolder($module)
     {
         $path = Loader::getLocal('modules/'.$module) ?  Loader::getLocal('modules/'.$module) . '/migrations' : false;
 
@@ -38,7 +38,7 @@ class Migrate extends \Phinx\Console\Command\Migrate
      * @param InputInterface $input
      * @param OutputInterface $output
      */
-    protected function applyMigration(array $modules, InputInterface $input, OutputInterface $output)
+    protected function applyMigration($modules, InputInterface $input, OutputInterface $output)
     {
         foreach ($modules as $module) {
             if ($this->reconfigure($module, $input, $output)) {
