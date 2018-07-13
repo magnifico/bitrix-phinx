@@ -2,15 +2,16 @@
 
 namespace Magnifico\Phinx\Command;
 
+use Bitrix\Main\Config;
+use Bitrix\Main\Loader;
+use Bitrix\Main\ModuleManager;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Bitrix\Main\ModuleManager;
-use Bitrix\Main\Loader;
 
 class Migrate extends \Phinx\Console\Command\Migrate
 {
-	use \Magnifico\Phinx\BitrixAdapter;
+    use \Magnifico\Phinx\BitrixAdapter;
 
     /**
      * {@inheritdoc}
@@ -40,10 +41,58 @@ class Migrate extends \Phinx\Console\Command\Migrate
      */
     protected function applyMigration($modules, InputInterface $input, OutputInterface $output)
     {
-        foreach ($modules as $module) {
-            if ($this->reconfigure($module, $input, $output)) {
+        if (1 === count($modules)) {
+            if ($this->reconfigure(current($modules), $input, $output)) {
                 parent::execute($input, $output);
             }
+
+            return;
+        }
+
+        foreach ($modules as $module) {
+            $this->runNewProcess($module, $input, $output);
+        }
+    }
+
+    /**
+     * @param string $module
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
+    protected function runNewProcess($module, InputInterface $input, OutputInterface $output)
+    {
+        $env = [
+            'PHP_BIN' => Config\Option::get('magnifico.phinx', 'php_bin', PHP_BINARY),
+            'MANAGER_FILE' => Config\Option::get('magnifico.phinx', 'manager_file', realpath($_SERVER['argv'][0])),
+        ];
+
+        if (!is_executable($env['PHP_BIN'])) {
+            throw new \Exception('Incorect php bin');
+        }
+
+        if (!is_file($env['MANAGER_FILE'])) {
+            throw new \Exception('Incorect manager file');
+        }
+
+        $descriptors = array(
+            1 => STDOUT,
+            2 => STDERR,
+        );
+
+        $process = proc_open(
+            sprintf('%s %s phinx:migrate %s', $env['PHP_BIN'], $env['MANAGER_FILE'], $module),
+            $descriptors,
+            $pipes,
+            realpath($_SERVER['DOCUMENT_ROOT'].'/../'),
+            $env
+        );
+
+        if (false === $process) {
+            throw new \Exception('Fail run migration process');
+        }
+
+        if (0 !== proc_close($process)) {
+            throw new \Exception('Something went wrong');
         }
     }
 
