@@ -61,10 +61,10 @@ class Migrate extends \Phinx\Console\Command\Migrate
      */
     protected function runNewProcess($module, InputInterface $input, OutputInterface $output)
     {
-        $env = [
+        $env = array(
             'PHP_BIN' => Config\Option::get('magnifico.phinx', 'php_bin', PHP_BINARY),
             'MANAGER_FILE' => Config\Option::get('magnifico.phinx', 'manager_file', realpath($_SERVER['argv'][0])),
-        ];
+        );
 
         if (!is_executable($env['PHP_BIN'])) {
             throw new \Exception('Incorect php bin');
