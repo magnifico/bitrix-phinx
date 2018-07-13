@@ -73,3 +73,19 @@ php manage.php phinx:status magnifico.site
 magnifico_phinx_migrations_of_magnifico_site
 magnifico_phinx_migrations_of_atlaslib_feedback
 ```
+
+# Применение миграций для нескольких модулей
+php manage.php phinx:migrate magnifico.site1 magnifico.site2 magnifico.site3
+
+# Применение миграций для всех модулей
+php manage.php phinx:migrate
+
+При применении миграций для более чем одного модуля, миграции для каждого модуля запускаются в отдельном процессе. Это делается для того чтобы не возникло повторного объявления php класса в случае когда в разных модулях есть миграции с одинаковыми именами. Для запуска отдельного процесса используются следующие переменные окужения:
+- php_bin - путь к исполняемому файлу php, по умолчанию `PHP_BINARY`
+- manager_file - путь к файлу manage.php, по умолчанию `realpath($_SERVER['argv'][0])`
+
+При необходимости вы можете задать эти переменные следующим образом.
+```
+\Bitrix\Main\Config\Option::set('magnifico.phinx', 'php_bin', '/bin/php');
+\Bitrix\Main\Config\Option::set('magnifico.phinx', 'manager_file', '/app/www/manager.php');
+```
